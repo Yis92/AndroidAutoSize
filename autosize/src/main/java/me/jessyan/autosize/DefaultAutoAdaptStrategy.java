@@ -21,8 +21,8 @@ import android.app.Application;
 import java.util.Locale;
 
 import me.jessyan.autosize.external.ExternalAdaptInfo;
-import me.jessyan.autosize.internal.CancelAdapt;
 import me.jessyan.autosize.internal.CustomAdapt;
+import me.jessyan.autosize.internal.UseAdapt;
 import me.jessyan.autosize.utils.LogUtils;
 
 /**
@@ -57,8 +57,8 @@ public class DefaultAutoAdaptStrategy implements AutoAdaptStrategy {
             }
         }
 
-        //如果 target 实现 CancelAdapt 接口表示放弃适配, 所有的适配效果都将失效
-        if (target instanceof CancelAdapt) {
+        //如果 target 实现 UseAdapt 接口表示使用该方案适配
+        if (!(target instanceof UseAdapt)) {
             LogUtils.w(String.format(Locale.ENGLISH, "%s canceled the adaptation!", target.getClass().getName()));
             AutoSize.cancelAdapt(activity);
             return;
